@@ -145,18 +145,9 @@ void panic(char *panicstr, ...)
     unsigned int count = 0;
     printf("Stack pointer is at 0x%08x\n", _sp);
     printf("Frame pointer is at 0x%08x\n", _fp);
-    asm volatile (
-        "mov r0, #0x1\n"
-        "mov r1, #0x2\n"
-        "mov r3, #0x3\n"
-        "push {r0}\n"
-        "push {r1}\n"
-        "push {r3}\n"
-        :
-    );
     printf("SP: 0x%08x\n" ,(unsigned int)stack);
     printf("Before SP:\n");
-    for (offset=0; offset>=-9; offset--){
+    for (offset=0; offset>=-50; offset-=4){
         count++;
         if (*(stack + offset) == 0) {
             printf("%d: 0x%08X (offset %d): Empty\n", count, _sp + offset, offset);
@@ -169,7 +160,7 @@ void panic(char *panicstr, ...)
         }
     };
     printf("After SP:\n");
-    for (offset=0; offset<=9; offset++){
+    for (offset=0; offset<=50; offset+=4){
         count++;
         if (*(stack + offset) == 0) {
             printf("%d: 0x%08X (offset %d): Empty\n", count, _sp + offset, offset);
