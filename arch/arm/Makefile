@@ -7,7 +7,7 @@ CC      = $(CROSS_COMPILE)gcc-4.7
 OBJCOPY = $(CROSS_COMPILE)objcopy
 
 OBJS = init.o exception.o start.o boot.o panic.o \
-	   stdoutput.o mailbox.o mailbox_iface.o
+	   stdoutput.o mailbox.o mailbox_iface.o uart.o
 	   
 LDS  = link.lds
 
@@ -25,7 +25,7 @@ all: $(OBJS)
 	@echo "Kernel built"
 
 run:
-	qemu-system-arm -M raspi2 -m 256M -serial stdio -kernel kernel -net nic -net user
+	qemu-system-arm -M raspi2 -m 256M -serial stdio -kernel kernel
 
 run_debug:
 	@echo Running gdb debug server on tcp::1234.

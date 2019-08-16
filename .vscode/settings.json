@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "mailbox.h": "c",
+        "stdint.h": "c"
+    }
+}

@@ -60,7 +60,7 @@ uint32_t PropertyProcess(void)
     uint32_t result;
     mbox[MB_SIZE] = (mb_index + 1) << 2;
     mbox[MB_REQUEST_OR_RESPONSE] = 0;
-    result = mailbox_call(MB0_TAGS_ARM_TO_VC, mbox);
+    Mailbox0Write(MB0_TAGS_ARM_TO_VC, mbox);
     return result;
 }
 

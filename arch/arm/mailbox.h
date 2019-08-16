@@ -3,8 +3,6 @@
 
 #define MAILBOX_BASE (MMIO_BASE + 0xb880)
 
-#define MAILBOX_REQUEST  0
-#define MAILBOX_TAG_LAST 0
 typedef enum {
     MB0_POWER_MANAGEMENT = 0,
     MB0_FRAMEBUFFER,
@@ -135,7 +133,18 @@ typedef enum {
     T_OVALUE = 3,
     } rpi_tag_offset_t;
     
-int mailbox_call(uint32_t ch,volatile uint32_t mbox[]);
+typedef struct {
+    volatile unsigned int Read;
+    volatile unsigned int reserved1[((0x90 - 0x80) / 4) - 1];
+    volatile unsigned int Poll;
+    volatile unsigned int Sender;
+    volatile unsigned int Status;
+    volatile unsigned int Configuration;
+    volatile unsigned int Write;
+    } mailbox_t;
+
+void Mailbox0Write(mailbox_channel_t channel, int value);
+int Mailbox0Read(mailbox_channel_t channel);
 void PropertyInit();
 void PropertyAddTag(mailbox_tag_t tag, ...);
 uint32_t PropertyProcess(void);

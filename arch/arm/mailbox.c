@@ -12,25 +12,45 @@
 #define MBOX_RESPONSE   0x80000000
 #define MBOX_EMPTY      0x40000000
 
+/* Mailbox 0 mapped to it's base address */
+static mailbox_t* rpiMailbox0 = (mailbox_t*)MAILBOX_BASE;
 
-/**
- * Make a mailbox call. Returns 0 on failure, non-zero on success
- */
-int mailbox_call(uint32_t ch,volatile uint32_t mbox[])
+void Mailbox0Write( mailbox_channel_t channel, int value )
 {
-    unsigned int r = (((unsigned int)((unsigned long)&mbox)&~0xF) | (ch&0xF));
-    /* wait until we can write to the mailbox */
-    do{asm volatile("nop");}while(*MBOX_STATUS & ARM_MS_FULL);
-    /* write the address of our message to the mailbox with channel identifier */
-    *MBOX_WRITE = r;
-    /* now wait for the response */
-    while(1) {
-        /* is there a response? */
-        do{asm volatile("nop");}while(*MBOX_STATUS & ARM_MS_EMPTY);
-        /* is it a response to our message? */
-        if(r == *MBOX_READ)
-            /* is it a valid successful response? */
-            return mbox[1]==MBOX_RESPONSE;
+    /* For information about accessing mailboxes, see:
+       https://github.com/raspberrypi/firmware/wiki/Accessing-mailboxes */
+
+    /* Add the channel number into the lower 4 bits */
+    value &= ~(0xF);
+    value |= channel;
+
+    /* Wait until the mailbox becomes available and then write to the mailbox
+       channel */
+    while( ( rpiMailbox0->Status & ARM_MS_FULL ) != 0 ) { }
+
+    /* Write the modified value + channel number into the write register */
+    rpiMailbox0->Write = value;
+}
+
+
+int Mailbox0Read(mailbox_channel_t channel)
+{
+    /* For information about accessing mailboxes, see:
+       https://github.com/raspberrypi/firmware/wiki/Accessing-mailboxes */
+    int value = -1;
+
+    /* Keep reading the register until the desired channel gives us a value */
+    while( ( value & 0xF ) != channel )
+    {
+        /* Wait while the mailbox is empty because otherwise there's no value
+           to read! */
+        while( rpiMailbox0->Status & ARM_MS_EMPTY ) { }
+
+        /* Extract the value from the Read register of the mailbox. The value
+           is actually in the upper 28 bits */
+        value = rpiMailbox0->Read;
     }
-    return 0;
+
+    /* Return just the value (the upper 28-bits) */
+    return value >> 4;
 }
