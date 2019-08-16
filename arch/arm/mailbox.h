@@ -28,7 +28,7 @@ typedef enum {
 
 typedef enum {
     /* Videocore */
-    //TAG_GET_FIRMWARE_VERSION = 0x1,
+    TAG_GET_FIRMWARE_VERSION = 0x1,
 
     /* Hardware */
     
@@ -41,20 +41,20 @@ typedef enum {
     TAG_GET_CLOCKS,
     
     /* Config */
-    //TAG_GET_COMMAND_LINE = 0x50001,
+    TAG_GET_COMMAND_LINE = 0x50001,
 
     /* Shared resource management */
-    //TAG_GET_DMA_CHANNELS = 0x60001,
+    TAG_GET_DMA_CHANNELS = 0x60001,
 
     /* Power */
-    /*
+    
     TAG_GET_POWER_STATE = 0x20001,
     TAG_GET_TIMING,
     TAG_SET_POWER_STATE = 0x28001,
-    */
+    
 
     /* Clocks */
-    /*
+    
     TAG_GET_CLOCK_STATE = 0x30001,
     TAG_SET_CLOCK_STATE = 0x38001,
     TAG_GET_CLOCK_RATE = 0x30002,
@@ -63,11 +63,10 @@ typedef enum {
     TAG_GET_MIN_CLOCK_RATE = 0x30007,
     TAG_GET_TURBO = 0x30009,
     TAG_SET_TURBO = 0x38009,
-    */
+    
 
     /* Voltage */
-    TAG_GET_VOLTAGE = 0x30003,
-    /*
+    TAG_GET_VOLTAGE = 0x30003, 
     TAG_SET_VOLTAGE = 0x38003,
     TAG_GET_MAX_VOLTAGE = 0x30005,
     TAG_GET_MIN_VOLTAGE = 0x30008,
@@ -80,7 +79,7 @@ typedef enum {
     TAG_EXECUTE_CODE = 0x30010,
     TAG_GET_DISPMANX_MEM_HANDLE = 0x30014,
     TAG_GET_EDID_BLOCK = 0x30020,
-    */
+    
 
     /* Framebuffer */
     TAG_ALLOCATE_BUFFER = 0x40001,

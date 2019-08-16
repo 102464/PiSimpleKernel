@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "mailbox.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "framebuffer.h": "c"
     }
 }

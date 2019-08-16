@@ -7,7 +7,8 @@ CC      = $(CROSS_COMPILE)gcc-4.7
 OBJCOPY = $(CROSS_COMPILE)objcopy
 
 OBJS = init.o exception.o start.o boot.o panic.o \
-	   stdoutput.o mailbox.o mailbox_iface.o uart.o
+	   stdoutput.o mailbox.o mailbox_iface.o uart.o \
+	   framebuffer.o
 	   
 LDS  = link.lds
 
