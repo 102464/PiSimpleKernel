@@ -13,4 +13,9 @@ typedef struct {
 
 void init_framebuffer(int width, int height, int depth);
 volatile unsigned char* get_fbAddr(void);
-void fb_write(volatile unsigned char *fb, color_t color, int x, int y, int pitch);
+void fb_write(color_t _color, int x, int y);
+void draw_rectangle(int x, int y, int size_x, int size_y);
+void drawBox(int x, int y, int size);
+void fb_put(char *chr, int x, int y);
+//void fb_puts(volatile unsigned char *fb, char chr[], int row, int line, int pitch);
+void fb_puts(char *chr);

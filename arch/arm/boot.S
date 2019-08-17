@@ -17,7 +17,7 @@
 
 .equ MEM_SIZE,   0x10000000
 .equ TEXT_BASE,  0x8000
-.equ STACK_SIZE, 0x100000
+.equ STACK_SIZE, 0x500000
 .equ _SVC_STACK, (TEXT_BASE + MEM_SIZE - 4)
 .equ _IRQ_STACK, (_SVC_STACK - STACK_SIZE)
 .equ _FIQ_STACK, (_IRQ_STACK - STACK_SIZE)
@@ -69,7 +69,7 @@ clear:
 check:
 	cmp r4, r9
 	blo clear
-
+	// Jump to main
 	ldr r3, =kernel_main
 	blx r3
 

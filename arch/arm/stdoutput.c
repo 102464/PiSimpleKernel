@@ -39,6 +39,10 @@
 #define putchar uart_putc
 #endif
 
+#ifdef SCRN_OUTPUT
+#define putchar fb_putc
+#endif
+
 void putc(int c, void *stream);
 
 typedef unsigned long size_t;

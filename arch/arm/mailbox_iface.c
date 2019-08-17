@@ -4,6 +4,7 @@
 #include <stddef.h>
 
 #include "mailbox.h"
+#include "stdio.h"
 
 int  __attribute__((aligned(16))) mbox[128];
 static int mb_index = 0;
@@ -24,6 +25,7 @@ void *memcpy(void *restrict s1, const void *restrict s2, size_t n) { // Copy mem
 
 void PropertyAddTag(mailbox_tag_t tag, ...)
 {
+    printf("PropertyAddTag(): Adding tag 0x%08X\n",tag);
     va_list args;
     va_start(args, tag);
 
@@ -136,11 +138,13 @@ void PropertyAddTag(mailbox_tag_t tag, ...)
 }
 uint32_t PropertyProcess(void)
 {
+    printf("PropertyProcess()");
     uint32_t result;
     mbox[MB_SIZE] = (mb_index + 1) << 2; // MailBox size = index + 1 * 4
     mbox[MB_REQUEST_OR_RESPONSE] = 0;   // Request
     Mailbox0Write(MB0_TAGS_ARM_TO_VC, (uint32_t)mbox);
     result = Mailbox0Read(MB0_TAGS_ARM_TO_VC);
+    printf(" completed with result %d\n",result);
     return result;
 }
 
