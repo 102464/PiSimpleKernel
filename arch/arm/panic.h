@@ -18,7 +18,5 @@ typedef enum {
     cpsr
 } registers;
 
-
-
 int printarg(char **out, int *varg);
 void panic(char *panicstr, ...);
