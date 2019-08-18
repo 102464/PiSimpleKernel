@@ -84,7 +84,7 @@ getRegistervalue(registers registername) {
 }
 void panic(char *panicstr, ...) {
 
-    printf("**panic** ");
+    printf("**panic** occurred: ");
     va_list ap;
     va_start(ap, panicstr);
     kvprintf(panicstr, putchar, (void *)1, 10, ap);
@@ -119,7 +119,7 @@ void panic(char *panicstr, ...) {
            _r7, _r8, _r9, _r10, _fp, _r12);
 
     printf("SP=0x%08X LR=0x%08X PC=0x%08X CPSR=0x%08X\n", _sp, _lr, _pc, _cpsr);
-    printf("Detailed information: (Provided by the kernel)\n");
+    // printf("Detailed information: (Provided by the kernel)\n");
 
     printf("Stack Information: \n");
     int offset;
@@ -163,6 +163,6 @@ void panic(char *panicstr, ...) {
     };
 
     printf("----[End panic info]----\n");
-    while (1)
-        ;
+    for (;;) {
+    }
 }

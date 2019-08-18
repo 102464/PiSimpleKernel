@@ -79,7 +79,22 @@ void uart_puts(const char *str) {
     for (size_t i = 0; str[i] != '\0'; i++)
         uart_putc((unsigned char)str[i]);
 }
-
+char *uart_gets() {
+    char *str;
+    int offset;
+    for (;;) {
+        str[offset] = uart_getc();
+        if (str[offset] == 13) {
+            // str[offset] = "\0";
+            // printf("\n");
+            break;
+        }
+        printf("%c", str[offset]);
+        offset++;
+    }
+    offset = 0;
+    return str;
+}
 #if defined(__cplusplus)
 extern "C" /* Use C linkage for kernel_main. */
 #endif

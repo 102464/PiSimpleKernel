@@ -1,5 +1,5 @@
 .section .text
-
+// 异常向量表-异常处理（未完成）
 .global __vector_undefined
 .global __vector_swi
 .global __vector_prefetch_abort
@@ -8,7 +8,7 @@
 .global __vector_irq
 .global __vector_fiq
 
-.extern irq_handler
+//.extern irq_handler
 .text
 
 __vector_undefined:
